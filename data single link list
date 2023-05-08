@@ -1,0 +1,133 @@
+#include<stdio.h>
+#include<malloc.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head,*tail;
+//to add a number in a struct
+void add(int value)
+{
+    struct node*add=malloc(sizeof(struct node));
+    add->data=value;
+    add->next=NULL;
+    if(head==NULL)
+    {
+        head=add;
+        tail=add;
+    }
+    else
+    {
+        tail->next=add;
+        tail=add;
+    }
+}
+//to  display first
+void first(int value)
+{
+    struct node*first=malloc(sizeof(struct node));
+    first->data=value;
+    first->next=head;
+    head=first;
+}
+//to insert a number
+void insert(int pos,int ele)
+{
+    struct node*temp=malloc(sizeof(struct node));
+    temp->data=ele;
+    temp->next=NULL;
+    struct node*temp1=head;
+    for(int i=1;i<pos-1;i++)
+    {
+        temp1 = temp1->next;
+        if(temp==NULL)
+        break;
+        
+    }
+    if(temp1!=NULL)
+    {
+        temp->next=temp1->next;
+        temp1->next=temp;
+    }
+    else
+    {
+        tail->next=temp;
+        tail=temp;
+    }
+    
+}
+//to delete head
+void del()
+{
+    struct node*temp=head;
+    head=head->next;
+    free(temp);
+}
+//to dlelte the element
+void delete(int val)
+{
+    struct node*curr=head;
+    struct node*prev=head;
+    int len=0;
+    while(curr->next!=NULL)
+    {  
+        
+            curr = curr->next;
+            len++;
+        
+        if(curr->data==val)
+            break;
+        
+    }
+    
+    for(int i=1;i<len;i++)
+    {
+        prev = prev->next;
+    }
+    
+    prev->next = curr->next;
+    free(curr);    
+}
+//to search
+void search(int val)
+{
+    struct node*temp=head;
+    // temp->data=val;
+    int len=1;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+        len++;
+        if(temp->data==val)
+            break;
+         
+    }
+    printf("The element you are searching is in tindex %d\n ",len);
+}
+//to display the number
+void display()
+{
+    struct node *display=head;
+    while(display!=NULL)
+    {
+        printf("%d ",display->data);
+        display=display->next;
+    }
+}
+int main()
+{   
+    
+    add(10);
+    add(20);
+    add(100);
+    add(150);
+     first(15);
+     insert(5,13);
+     delete(13);
+    search(150);
+    display();
+}
+
+
